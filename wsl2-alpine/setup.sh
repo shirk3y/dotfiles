@@ -17,9 +17,19 @@ apk add \
 	openssh \
 	openssh-keygen
 
+# Starship shell
+if ! command -v starship; then
+	curl -fsSL \
+		https://starship.rs/install.sh | ( \
+			bash -s -- --verbose --force --bin-dir /usr/bin \
+		)
+fi
+
 usermod -s /bin/bash shirk3y
 
+# Sudo 
 echo "shirk3y ALL=(ALL:ALL) ALL" > /etc/sudoers.d/shirk3y
 chmod 0440 /etc/sudoers.d/shirk3y
 
-su -c "$here/setup-user.sh" shirk3y
+# Userland
+su  -c "$here/setup-user.sh" shirk3y
